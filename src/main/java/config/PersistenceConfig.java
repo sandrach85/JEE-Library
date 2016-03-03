@@ -20,8 +20,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@PropertySource("classpath:META-INF/application.properties")
-@EnableJpaRepositories(basePackages = PackageNames.DAOS, repositoryImplementationPostfix = "Impl")
+@PropertySource(ResourceNames.PROPERTIES)
+@EnableJpaRepositories(basePackages = ResourceNames.DAOS, repositoryImplementationPostfix = "Impl")
 @EnableTransactionManagement
 public class PersistenceConfig {
 
@@ -43,7 +43,6 @@ public class PersistenceConfig {
     public EntityManagerFactory entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        
         Properties properties = new Properties();
         properties.put("hibernate.connection.charSet", "UTF-8");
         properties.put("hibernate.show_sql", "false");
@@ -52,10 +51,8 @@ public class PersistenceConfig {
         properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
         entityManagerFactoryBean.setJpaProperties(properties);
-        
-        entityManagerFactoryBean.setPackagesToScan(PackageNames.ENTITIES);
+        entityManagerFactoryBean.setPackagesToScan(ResourceNames.ENTITIES);
         entityManagerFactoryBean.setDataSource(dataSource());
-        
         entityManagerFactoryBean.afterPropertiesSet();
         return entityManagerFactoryBean.getObject();
     }
