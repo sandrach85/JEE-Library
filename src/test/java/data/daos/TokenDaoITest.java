@@ -31,5 +31,4 @@ public class TokenDaoITest {
         assertEquals(token, tokenDao.findByUser(token.getUser()));
         assertNull(tokenDao.findByUser(user));
     }
-
 }

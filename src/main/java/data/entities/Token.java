@@ -82,11 +82,12 @@ public class Token {
 		return "Token [id=" + id + ", value=" + value + ", createdDate=" + createdDate + ", user=" + user + "]";
 	}
     
-    public boolean isValid()
-    {
+    public boolean isValid(){
+    	
     	if ((Calendar.getInstance().getTimeInMillis()-createdDate.getTimeInMillis())<3600000)
     		return true;
     	else
     		return false;
     }
+    
 }
